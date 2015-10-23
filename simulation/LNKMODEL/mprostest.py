@@ -5,10 +5,41 @@ from math import floor
 from pygsl import rng as rn
 import Lffit, LffitB
 import pdt
+import argparse ###*
+parser=argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,epilog=("""
+""")) ###*
+parser.add_argument("p",help="path to the main directory") ###*
+parser.add_argument("r", type=int, help="number of runs")###*
+parser.add_argument("j", type=int, help="number of jumps")###*
+parser.add_argument("DT", type=int, help="time interval between jumps") ###*
+parser.add_argument("-s","--seed", type=int, default=1239876514, help="seed for random number generation") ###*
+parser.add_argument("-m","--minimum_length",type=int,default=500,help="minimum_size /default 500") ###*
+parser.add_argument("-p1","--probability1", type=float, default=2e-4, help="probability of hgt for Eff") ###*
+parser.add_argument("-p2","--probability2",type=float, default=1.5e-4, help="probability of hgt for TEs") ###*
+parser.add_argument("-p3","--probability3",type=float, default=5e-6, help="probability of Eff recombination/mutation") ###*
+parser.add_argument("-p4","--probability4", type=float, default=0.5e-7, help="probability of TE duplication") ###*
+parser.add_argument("-p5","--probability5", type=float, default=1e-6, help="") ###*
+parser.add_argument("-p6", "--probability6", type=float, default=1.0e-4, help="") ###*
+parser.add_argument("-p7","--probability7", type=float, default=2.5e-4, help="") ###*
+parser.add_argument("-p8","--probability8", type=float, default=6.5e-5, help="") ###*
+args=parser.parse_args() ###*
+pth=args.p ###*
+RUNS=args.r ###*
+tn=args.DT ###*
+JMPS=args.j ###*
+SEED=args.s ###*
+m1=args.p1 ###*
+m2=args.p2 ###*
+m3=args.p3 ###*
+m4=args.p4 ###*
+m5=args.p5 ###*
+m6=args.p6 ###*
+m7=args.p7 ###*
+m8=args.p8 ###*
 rxclr=[]
 crinckler=[]
 tes=[]
-pth='../../'
+###*pth='../../'
 rxclr=Lffit.loaddata(pth+'rxclr.dat')
 crinckler=Lffit.loaddata(pth+'crinckler.dat')
 tes=Lffit.loaddata(pth+'tes.dat')
@@ -29,21 +60,21 @@ Lth=floor((RXCLRPTS[0]+CRKPTS[0]+TES[0])*(1.0/3.0)*(av1+av2+av3))
 PL1=[TES[1],TES[2]]
 PL2=[CRKPTS[1],RXCLRPTS[2]]
 Ntot=RXCLRPTS[0]+CRKPTS[0]+TES[0]
-SEED=1239876514
+###*SEED=1239876514
 #rk=rn.rng()
 #rk.set(SEED)
 nte=5
 neff=10
-tn=5000
+###*tn=5000
 Np=1e6
-m1=2e-4#1e-5 #hgt effs
-m2=1.5e-4#hgt te
-m3=5e-6 #m3=0.02 #eff recomb
-m4=0.5e-7  #te dup
-m5=1e-6  #3.5 #10.50 #eff dup+te
-m6=1.0e-4 #m6=0.0013  #eff->null
-m7=2.5e-4 #1e-7 #10*1e-5 #null ->0
-m8=6.5e-5 #1e-7 #m8=1.0001##eff->0
+###*m1=2e-4#1e-5 #hgt effs
+###*m2=1.5e-4#hgt te
+###*m3=5e-6 #m3=0.02 #eff recomb
+###*m4=0.5e-7  #te dup
+###*=1e-6  #3.5 #10.50 #eff dup+te
+###*m6=1.0e-4 #m6=0.0013  #eff->null
+###*m7=2.5e-4 #1e-7 #10*1e-5 #null ->0
+###*m8=6.5e-5 #1e-7 #m8=1.0001##eff->0
 kn=0.0
 beta1=1e-5
 beta2=0.001
@@ -162,9 +193,9 @@ def evolx(P,tn,PL1,PL2,gold,rk,nj,Qi,ptj,qij,rnz):
     #return gen
 ###############################################################################
 RO=0
-RUNS=1
+###*RUNS=1
 for rnz in range(RO,RUNS):
-    JMPS=40
+    ###*JMPS=40
     PAR=9
     NUM_PROCESSES = 3*3
     rk=rn.rng()
