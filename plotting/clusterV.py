@@ -1,5 +1,7 @@
 #changing notebook file to have a single python script that can run on the cluster
 
+###*=modifications on Carlos' code
+
 import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
