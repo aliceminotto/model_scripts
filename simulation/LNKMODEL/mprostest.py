@@ -8,7 +8,7 @@ import pdt
 rxclr=[]
 crinckler=[]
 tes=[]
-pth='../../../'
+pth='../../'
 rxclr=Lffit.loaddata(pth+'rxclr.dat')
 crinckler=Lffit.loaddata(pth+'crinckler.dat')
 tes=Lffit.loaddata(pth+'tes.dat')
@@ -29,12 +29,12 @@ Lth=floor((RXCLRPTS[0]+CRKPTS[0]+TES[0])*(1.0/3.0)*(av1+av2+av3))
 PL1=[TES[1],TES[2]]
 PL2=[CRKPTS[1],RXCLRPTS[2]]
 Ntot=RXCLRPTS[0]+CRKPTS[0]+TES[0]
-SEED=1239876534
+SEED=1239876514
 #rk=rn.rng()
 #rk.set(SEED)
 nte=5
 neff=10
-tn=20000
+tn=5000
 Np=1e6
 m1=2e-4#1e-5 #hgt effs
 m2=1.5e-4#hgt te
@@ -81,11 +81,11 @@ def evolx(P,tn,PL1,PL2,gold,rk,nj,Qi,ptj,qij,rnz):
             gl=[gold[i][0],gold[i][1],gold[i][2]]
         else:
             qj=rk.uniform_pos()
-            snew=gold[i][2]+(0.00*( 1.0-2.0*rk.uniform_pos() ))
+            snew=gold[i][2]+(0.01*( 1.0-2.0*rk.uniform_pos() ))
             if ((qj<Qi) and (snew>0.0)):
                 gl=[gold[i][0],gold[i][1],snew]
             else:
-                gl=[gold[i][0],gold[i][1],snew]
+                gl=[gold[i][0],gold[i][1],0.0]
         gen[k]=gl
         k+=1
 
@@ -148,27 +148,28 @@ def evolx(P,tn,PL1,PL2,gold,rk,nj,Qi,ptj,qij,rnz):
         #[lth,ltn,ngt,pqr,gen,flg,fitn,trns]
         #lth,ltn,ngt,pqr, gen,info,wfitn,trns
         #print("HELLO")
-        pdt.savedata(lth,ltn,ngt,efflens,telens,P,SEED,pthl,fitn,trns,nefft,ntest,lnefft,lntest)
-        if telens and efflens:
-            pdt.datadisplay(lth,ltn,ngt,efflens,telens,500,50,P,SEED,pthl,fitn,Qi,)
+        #***********add below tn and number of jumps
+        pdt.savedata(lth,ltn,ngt,efflens,telens,P,SEED,pthl,fitn,trns,nefft,ntest,lnefft,lntest,tn,JMPS)
+        ###*if telens and efflens:
+        ###*    pdt.datadisplay(lth,ltn,ngt,efflens,telens,500,50,P,SEED,pthl,fitn,Qi,)
             #del lth,ltn,ngt,pqr,info,wfitn,trns
             #gc.collect()
-        else:
-            print("NOT-DATA-TO-SHOW")
+        ###*else:
+        ###*    print("NOT-DATA-TO-SHOW")
     ####################
 
     qij.put(gen)
     #return gen
 ###############################################################################
 RO=0
-RUNS=5
+RUNS=1
 for rnz in range(RO,RUNS):
-    JMPS=10
-    PAR=1
+    JMPS=40
+    PAR=9
     NUM_PROCESSES = 3*3
     rk=rn.rng()
     rk.set(SEED-rnz)
-    Qi=1.0
+    Qi=0.1
     gno=Lffit.inigenome(nte,neff,rk,PL1,PL2)
     for i in range(PAR):
 
@@ -194,4 +195,4 @@ for rnz in range(RO,RUNS):
                     for nuk in gnx[muk]:
                         ak.append(nuk)
                     gn[muk]=ak
-        Qi+=0.0
+        Qi+=0.1

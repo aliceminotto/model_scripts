@@ -112,9 +112,12 @@ def datadisplay(lth,ltn,ngt,efflens,telens,dbina,dbinb,P,SEED,pth,wfitn,Qi):
   fig.savefig(namefig,dpi=100, bbox_inches='tight')
   plt.close(fig)
 ##########################################################################
-def savedata(lth,ltn,ngt,efflens,telens, P,SEED,pth,wfitn,trns,nefft,ntest,lneff,lntest):
+'''*********modify next line to save DT, number of jumps as well as the other parameters
+just adding them at the end of the things the fun needs and at the and of the Data list
+'''
+def savedata(lth,ltn,ngt,efflens,telens, P,SEED,pth,wfitn,trns,nefft,ntest,lneff,lntest, DT, JUMPS):
 
-  Data=[lth,ltn,ngt,nefft,ntest,efflens,telens, P,SEED,trns,lneff,lntest]
+  Data=[lth,ltn,ngt,nefft,ntest,efflens,telens, P,SEED,trns,lneff,lntest,DT,JUMPS]
 
   import os
   import pickle
@@ -125,5 +128,10 @@ def savedata(lth,ltn,ngt,efflens,telens, P,SEED,pth,wfitn,trns,nefft,ntest,lneff
     nj+=1
     namefig=pth+'/pts'+str(nj)+'plotdata.p'
   print namefig
+
+  #**********add these lines
+  aladd=pth.strip('./').split('/')
+  aladd.append(str(nj))
+  Data.append(aladd)
 
   pickle.dump(Data,open(namefig,"wb"))
