@@ -13,7 +13,6 @@ parser.add_argument("r", type=int, help="number of runs")###*
 parser.add_argument("j", type=int, help="number of jumps")###*
 parser.add_argument("DT", type=int, help="time interval between jumps") ###*
 parser.add_argument("-s","--seed", type=int, default=1239876514, help="seed for random number generation") ###*
-parser.add_argument("-m","--minimum_length",type=int,default=500,help="minimum_size /default 500") ###*
 parser.add_argument("-p1","--probability1", type=float, default=2e-4, help="probability of hgt for Eff") ###*
 parser.add_argument("-p2","--probability2",type=float, default=1.5e-4, help="probability of hgt for TEs") ###*
 parser.add_argument("-p3","--probability3",type=float, default=5e-6, help="probability of Eff recombination/mutation") ###*
@@ -27,15 +26,15 @@ pth=args.p ###*
 RUNS=args.r ###*
 tn=args.DT ###*
 JMPS=args.j ###*
-SEED=args.s ###*
-m1=args.p1 ###*
-m2=args.p2 ###*
-m3=args.p3 ###*
-m4=args.p4 ###*
-m5=args.p5 ###*
-m6=args.p6 ###*
-m7=args.p7 ###*
-m8=args.p8 ###*
+SEED=args.seed ###*
+m1=args.probability1 ###*
+m2=args.probability2 ###*
+m3=args.probability3 ###*
+m4=args.probability4 ###*
+m5=args.probability5 ###*
+m6=args.probability6 ###*
+m7=args.probability7 ###*
+m8=args.probability8 ###*
 rxclr=[]
 crinckler=[]
 tes=[]
