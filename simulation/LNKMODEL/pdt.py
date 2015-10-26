@@ -115,9 +115,9 @@ def datadisplay(lth,ltn,ngt,efflens,telens,dbina,dbinb,P,SEED,pth,wfitn,Qi):
 '''*********modify next line to save DT, number of jumps as well as the other parameters
 just adding them at the end of the things the fun needs and at the and of the Data list
 '''
-def savedata(lth,ltn,ngt,efflens,telens, P,SEED,pth,wfitn,trns,nefft,ntest,lneff,lntest, DT, JUMPS):
+def savedata(lth,ltn,ngt,efflens,telens, P,SEED,pth,wfitn,trns,nefft,ntest,lneff,lntest, DT, JUMPS): ###*
 
-  Data=[lth,ltn,ngt,nefft,ntest,efflens,telens, P,SEED,trns,lneff,lntest,DT,JUMPS]
+  Data=[lth,ltn,ngt,nefft,ntest,efflens,telens, P,SEED,trns,lneff,lntest,DT,JUMPS] ###*
 
   import os
   import pickle
