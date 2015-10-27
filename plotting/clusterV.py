@@ -1,7 +1,5 @@
 #changing notebook file to have a single python script that can run on the cluster
 
-###*=modifications on Carlos' code
-
 import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
@@ -168,7 +166,7 @@ namepth=pth+fout+"typrunlength"#.svg" ###*add pth
 print namepth
 
 fig.patch.set_alpha(0.5)
-fig.savefig(namepth+'.eps',format='eps' ,dpi=1200, bbox_inches='tight')
+#fig.savefig(namepth+'.eps',format='eps' ,dpi=1200, bbox_inches='tight')
 ###*comment line below because of runtimeerror arise (it should be saving the same image in different format, shouldn't it?)
 fig.savefig(namepth+'.png',format='png' ,dpi=1200, bbox_inches='tight')
 ###*commented below cause jpg is not supported?????
@@ -218,7 +216,7 @@ print namepth
 fig.patch.set_alpha(0.5)
 #fig.savefig(namepth,dpi=100, bbox_inches='tight')
 
-fig.savefig(namepth+'.eps',format='eps',dpi=1200, bbox_inches='tight')
+#fig.savefig(namepth+'.eps',format='eps',dpi=1200, bbox_inches='tight')
 fig.savefig(namepth+'.png',format='png' ,dpi=1200, bbox_inches='tight')
 #fig.savefig(namepth+'.svg',format='svg', dpi=200, bbox_inches='tight')
 ###*commented below cause jpg is not supported
@@ -277,7 +275,7 @@ namepth=pth+fout+"randomwalk"#.eps"###*add pth
 ##print namepth
 #fig.set_size_inches(13.5,10.5)
 fig.patch.set_alpha(0.5)
-fig.savefig(namepth+'.eps', dpi=1200, bbox_inches='tight')
+#fig.savefig(namepth+'.eps', dpi=1200, bbox_inches='tight')
 fig.savefig(namepth+'.png', dpi=1200, bbox_inches='tight')
 ##fig.savefig(namepth+'.svgz', dpi=600, bbox_inches='tight')
 ###*commented below cau8se jpg is not supported
@@ -457,9 +455,9 @@ fig1, axesa = plt.subplots(1,figsize=(10, 8))
 axesa.set_ylabel("$< Lengths >_{Ens}$", fontsize=40)
 axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
 axesa.xaxis.set_tick_params(labelsize=20)
-axesa.xaxis.set_major_formatter(mtick.FormatStrFormatter('%1.e'))
+axesa.xaxis.set_major_formatter(mtick.FormatStrFormatter('%2.e'))
 axesa.yaxis.set_tick_params(labelsize=20)
-axesa.yaxis.set_major_formatter(mtick.FormatStrFormatter('%1.e'))
+axesa.yaxis.set_major_formatter(mtick.FormatStrFormatter('%2.e'))
 
 fig2, axesb = plt.subplots(1,figsize=(10, 10))
 axesb.set_ylabel("$<Number$ $of$ $units>_{Ens}$", fontsize=40)
