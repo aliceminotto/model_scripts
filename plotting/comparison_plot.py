@@ -46,15 +46,6 @@ NOPE4=pickle.load(f4)
 #######plot same Qi different DT#################
 #print NOPE1[0][1], 'tempo?'
 #print NOPE1[0][2]
-'''fig, axesa = plt.subplots(1,figsize=(10, 8))
-fig, axesb = plt.subplots(1,figsize=(10, 8))'''
-
-'''axesb.set_ylabel("$< Number$ $of$ $units >_{Ens}$", fontsize=40)
-axesb.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
-axesb.xaxis.set_tick_params(labelsize=20)
-axesb.xaxis.set_major_formatter(mtick.FormatStrFormatter('%1.e'))
-axesb.yaxis.set_tick_params(labelsize=20)
-axesb.yaxis.set_major_formatter(mtick.FormatStrFormatter('%1.e'))'''
 
 #Data=[t,LAV,NAV,STDN,STDL]
 T1=NOPE1[0]
@@ -135,6 +126,72 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig(pth1+'trial_plot_eff_te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+
+c=0.1
+for x in pts1:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Number$ $of$ $units >_{Ens}$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.FormatStrFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    axesa.plot(T1,NOPE1[2][x],label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(T2,NOPE2[2][x],label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(T3,NOPE3[2][x],label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot(T4,NOPE4[2][x],label="$\Delta T= 2.0\\times 10^4$")
+
+    axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+
+    val_c=c
+    titstr='$c='+str(c)+'$'
+    print titstr
+    c+=0.1
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,20000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig(pth1+'trial_plot_unit'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+
+c=0.1
+for x in pts1:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Number$ $of$ $units >_{Ens}$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.FormatStrFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    axesa.plot(T1,NOPE1[5][x],'c-',label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(T1,NOPE1[6][x],'c--')
+    axesa.plot(T2,NOPE2[5][x],'m-',label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(T2,NOPE2[6][x],'m--')
+    axesa.plot(T3,NOPE3[5][x],'k-',label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot(T3,NOPE3[6][x],'k--')
+    axesa.plot(T4,NOPE4[5][x],'g-',label="$\Delta T= 2.0\\times 10^4$")
+    axesa.plot(T4,NOPE4[6][x],'g--')
+
+    axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+
+    val_c=c
+    titstr='$c='+str(c)+'$'
+    print titstr
+    c+=0.1
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,20000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig(pth1+'trial_plot_unit_eff_Te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
 
 '''axesb.plot(T1,NOPE1[2]['n0/'],label="$\Delta T=5.0\\times10^3$")
 axesb.plot(T2,NOPE2[2]['n0/'],label="$\Delta T=1.0\\times 10^4$")
