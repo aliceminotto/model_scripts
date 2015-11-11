@@ -60,6 +60,12 @@ pts4=NOPE4[1].keys()
 
 assert pts1==pts2==pts3==pts4
 
+d={}
+d[n1]=["$\Delta T=5.0\\times 10^3$",NOPE1]
+d[n2]=["$\Delta T= 1.0\\times 10^4$",NOPE2]
+d[n3]=["$\Delta T= 1.5 \\times 10^4$",NOPE3]
+d[n4]=["$\Delta T= 2.0\\times 10^4$",NOPE4]
+
 c=0.1
 for x in pts1:
     fig, axesa = plt.subplots(1,figsize=(10, 8))
@@ -72,10 +78,10 @@ for x in pts1:
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
-    axesa.plot(T1,NOPE1[1][x],label="$\Delta T=5.0\\times 10^3$")
-    axesa.plot(T2,NOPE2[1][x],label="$\Delta T= 1.0\\times 10^4$")
-    axesa.plot(T3,NOPE3[1][x],label="$\Delta T= 1.5 \\times 10^4$")
-    axesa.plot(T4,NOPE4[1][x],label="$\Delta T= 2.0\\times 10^4$")
+    axesa.plot(T1,NOPE1[1][x],'c-',label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(T2,NOPE2[1][x],'m-',label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(T3,NOPE3[1][x],'k-',label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot(T4,NOPE4[1][x],'g-',label="$\Delta T= 2.0\\times 10^4$")
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -86,10 +92,10 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,20000])
+    axesa.set_xlim([0,80000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig(pth1+'trial_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
 
 c=0.1
 for x in pts1:
@@ -122,10 +128,10 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,20000])
+    axesa.set_xlim([0,80000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig(pth1+'trial_plot_eff_te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
 
 c=0.1
 for x in pts1:
@@ -134,15 +140,15 @@ for x in pts1:
     axesa.set_ylabel("$< Number$ $of$ $units >_{Ens}$", fontsize=40)
     axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
     axesa.xaxis.set_tick_params(labelsize=20)
-    axesa.xaxis.set_major_formatter(mtick.FormatStrFormatter(useMathText=True))
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     axesa.yaxis.set_tick_params(labelsize=20)
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
-    axesa.plot(T1,NOPE1[2][x],label="$\Delta T=5.0\\times 10^3$")
-    axesa.plot(T2,NOPE2[2][x],label="$\Delta T= 1.0\\times 10^4$")
-    axesa.plot(T3,NOPE3[2][x],label="$\Delta T= 1.5 \\times 10^4$")
-    axesa.plot(T4,NOPE4[2][x],label="$\Delta T= 2.0\\times 10^4$")
+    axesa.plot(T1,NOPE1[2][x],'c-',label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(T2,NOPE2[2][x],'m-',label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(T3,NOPE3[2][x],'k-',label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot(T4,NOPE4[2][x],'g-',label="$\Delta T= 2.0\\times 10^4$")
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -153,10 +159,10 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,20000])
+    axesa.set_xlim([0,80000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig(pth1+'trial_plot_unit'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
 
 c=0.1
 for x in pts1:
@@ -165,7 +171,7 @@ for x in pts1:
     axesa.set_ylabel("$< Number$ $of$ $units >_{Ens}$", fontsize=40)
     axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
     axesa.xaxis.set_tick_params(labelsize=20)
-    axesa.xaxis.set_major_formatter(mtick.FormatStrFormatter(useMathText=True))
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     axesa.yaxis.set_tick_params(labelsize=20)
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
@@ -188,10 +194,41 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,20000])
+    axesa.set_xlim([0,80000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig(pth1+'trial_plot_unit_eff_Te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+
+for x in d:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Number$ $of$ $units >$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    c=0.1
+
+    for y in pts1:
+
+        axesa.plot(T1,d[x][1][5][y],label='$c='+c+'$')
+        axesa.plot(T1,d[x][1][6][y])
+
+        axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+        c+=0.1
+
+    titstr=d[x][0]
+    print titstr
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,80000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+x+'.png',format='png' ,dpi=1200, bbox_inches='tight')
 
 '''axesb.plot(T1,NOPE1[2]['n0/'],label="$\Delta T=5.0\\times10^3$")
 axesb.plot(T2,NOPE2[2]['n0/'],label="$\Delta T=1.0\\times 10^4$")
