@@ -204,8 +204,6 @@ for x in pts1:
 #same DT different c value
 ###################################################################################################################################
 
-color=iter(cm.rainbow(np.linspace(0,1,len(pts1))))
-
 for x in d:
     fig, axesa = plt.subplots(1,figsize=(10, 8))
 
@@ -218,6 +216,8 @@ for x in d:
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
     c=0.1
+
+    color=iter(cm.rainbow(np.linspace(0,1,len(pts1))))
 
     for y in pts1:
 
@@ -250,6 +250,8 @@ for x in d:
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
     c=0.1
+
+    color=iter(cm.rainbow(np.linspace(0,1,len(pts1))))
 
     for y in pts1:
 
