@@ -78,6 +78,22 @@ d['DT10000']=["$\Delta T= 1.0\\times 10^4$",NOPE2,T2]
 d['DT15000']=["$\Delta T= 1.5 \\times 10^4$",NOPE3,T3]
 d['DT20000']=["$\Delta T= 2.0\\times 10^4$",NOPE4,T4]
 ####no need for this d['infinity']=["$\Delta T=\infty$",NOJU,TNO]
+def averaging(der_list):
+    n=0
+    to_plot=[]
+    sn=0.0
+    for x in der_list: #averaging
+        sn+=x
+        n+=1
+        to_plot.append(sn/n)
+    return to_plot
+
+def sampling(lista):
+    slices=[lista[i:i + 10] for i in range(0, len(lista), 10)]
+    res=[]
+    for x in slices:
+        res.append(np.mean(x))
+    return res
 
 ######################################################################################################
 #plotting total length over time for same c and different DT (it miss the infinity and color map)
@@ -94,10 +110,18 @@ for x in pts1:
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
-    axesa.plot(T1,NOPE1[1][x],'c-',label="$\Delta T=5.0\\times 10^3$")
-    axesa.plot(T2,NOPE2[1][x],'m-',label="$\Delta T= 1.0\\times 10^4$")
-    axesa.plot(T3,NOPE3[1][x],'k-',label="$\Delta T= 1.5 \\times 10^4$")
-    axesa.plot(T4,NOPE4[1][x],'g-',label="$\Delta T= 2.0\\times 10^4$")
+    color=iter(cm.rainbow(np.linspace(0,1,5)))
+
+    col=next(color)
+    axesa.plot(T1,NOPE1[1][x],c=col,label="$\Delta T=5.0\\times 10^3$")
+    col=next(color)
+    axesa.plot(T2,NOPE2[1][x],c=col,label="$\Delta T= 1.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(T3,NOPE3[1][x],c=col,label="$\Delta T= 1.5 \\times 10^4$")
+    col=next(color)
+    axesa.plot(T4,NOPE4[1][x],c=col,label="$\Delta T= 2.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(TNO,NOJU[1]['n0/'],c=col, label="$\Delta T=\infty$")
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -108,10 +132,64 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,80000])
+    axesa.set_xlim([0,200000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')'''
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()'''
+
+###################################################################################################
+#derivatives previous plot
+##################################################################################################
+c=0.1
+for x in pts1:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Lengths >$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    color=iter(cm.rainbow(np.linspace(0,1,5)))
+
+    der1=np.diff(NOPE1[1][x])
+    der2=np.diff(NOPE2[1][x])
+    der3=np.diff(NOPE3[1][x])
+    der4=np.diff(NOPE4[1][x])
+    der5=np.diff(NOJU[1]['n0/'])
+    #der1=averaging(der1)
+    #der2=averaging(der2)
+    #der3=averaging(der3)
+    #der4=averaging(der4)
+    #der5=averaging(der5)
+    col=next(color)
+    axesa.plot(sampling(der1),c=col,label="$\Delta T=5.0\\times 10^3$")
+    col=next(color)
+    axesa.plot(sampling(der2),c=col,label="$\Delta T= 1.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(sampling(der3),c=col,label="$\Delta T= 1.5 \\times 10^4$")
+    col=next(color)
+    axesa.plot(sampling(der4),c=col,label="$\Delta T= 2.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(sampling(der5),c=col, label="$\Delta T=\infty$")
+
+    axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+
+    val_c=c
+    titstr='$c='+str(c)+'$'
+    print titstr
+    c+=0.1
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,200000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 
 ####################################################################################################
 #plotting len of eff and tes over time for same c and different DT
@@ -119,7 +197,6 @@ for x in pts1:
 c=0.1
 for x in pts1:
     fig, axesa = plt.subplots(1,figsize=(10, 8))
-    figb, axesb=plt.subplots(1,figsize=(10,8)) ###new
 
     axesa.set_ylabel("$< Lengths >_{Ens}$", fontsize=40)
     axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
@@ -129,31 +206,25 @@ for x in pts1:
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
-    axesb.set_ylabel("$< Lengths >_{Ens}$", fontsize=40) ###new
-    axesb.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40) ###new
-    axesb.xaxis.set_tick_params(labelsize=20)###new
-    axesb.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))###new
-    axesb.yaxis.set_tick_params(labelsize=20) ###new
-    axesb.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))###new
-    plt.ticklabel_format(style='sci', scilimits=(0,0)) ###new
-
     color=iter(cm.rainbow(np.linspace(0,1,5))) ###change 4 when adding new
 
     col=next(color)
     axesa.plot(T1,NOPE1[9][x],c=col,ls='-',label="$\Delta T=5.0\\times 10^3$")
-    axesa.plot(T1,NOPE1[10][x],c=col,ls=':')
+    axesa.plot(T1,NOPE1[10][x],c=col,ls='--')
     col=next(color)
     axesa.plot(T2,NOPE2[9][x],c=col,ls='-',label="$\Delta T= 1.0\\times 10^4$")
-    axesa.plot(T2,NOPE2[10][x],c=col,ls=':')
+    axesa.plot(T2,NOPE2[10][x],c=col,ls='--')
     col=next(color)
     axesa.plot(T3,NOPE3[9][x],c=col,ls='-',label="$\Delta T= 1.5 \\times 10^4$")
-    axesa.plot(T3,NOPE3[10][x],c=col,ls=':')
+    axesa.plot(T3,NOPE3[10][x],c=col,ls='--')
     col=next(color)
     axesa.plot(T4,NOPE4[9][x],c=col,ls='-',label="$\Delta T= 2.0\\times 10^4$")
-    axesa.plot(T4,NOPE4[10][x],c=col,ls=':')
+    axesa.plot(T4,NOPE4[10][x],c=col,ls='--')
     col=next(color)
     axesa.plot(TNO,NOJU[9]['n0/'],c=col,ls='-', label="$\Delta T=\infty$")
-    axesa.plot(TNO,NOJU[10]['n0/'],c=col,ls=':')
+    plt.annotate('effector genes',xy=(100000, NOJU[9]['n0/'][-1000]))
+    axesa.plot(TNO,NOJU[10]['n0/'],c=col,ls='--')
+    plt.annotate('TEs',xy=(100000,NOJU[10]['n0/'][-1000]))
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -163,54 +234,66 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,80000])
+    axesa.set_xlim([0,200000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
+
+    c+=0.1
+###############################################################################################
+#derivatives previous plot
+################################################################################################
+c=0.1
+for x in pts1:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Lengths >_{Ens}$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
 
     color=iter(cm.rainbow(np.linspace(0,1,5))) ###change 4 when adding new
 
-    m1=np.ployfit(T1,NOPE1[9][x])
-    m12=np.polyfit(T1,NOPE1[10][x])
-    m2=np.polyfit(T2,NOPE2[9][x])
-    m22=np.polyfit(T2,NOPE2[10][x])
-    m3=np.polyfit(T3,NOPE3[9][x])
-    m32=np.polyfit(T3,NOPE3[10][x])
-    m4=np.polyfit(T4,NOPE4[9][x])
-    m42=np.polyfit(T4,NOPE4[10][x])
-    m5=np.polyfit(TNO,NOJU[9]['n0/'])
-    m52=np.polyfit(TNO,NOJU[10]['n0/'])
     col=next(color)
-    axesb.plot(m1,c=col,ls='-',label="$\Delta T=5.0\\times 10^3$")
-    axesb.plot(m12,c=col,ls=':')
+    axesa.plot(T1[1:],np.diff(np.array(NOPE1[9][x])),c=col,ls='-',label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(T1[1:],np.diff(np.array(NOPE1[10][x])),c=col,ls='--')
     col=next(color)
-    axesb.plot(m2,c=col,ls='-',label="$\Delta T= 1.0\\times 10^4$")
-    axesb.plot(m22,c=col,ls=':')
+    axesa.plot(T2[1:],np.diff(np.array(NOPE2[9][x])),c=col,ls='-',label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(T2[1:],np.diff(np.array(NOPE2[10][x])),c=col,ls='--')
     col=next(color)
-    axesb.plot(m3,c=col,ls='-',label="$\Delta T= 1.5 \\times 10^4$")
-    axesb.plot(m32,c=col,ls=':')
+    axesa.plot(T3[1:],np.diff(np.array(NOPE3[9][x])),c=col,ls='-',label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot(T3[1:],np.diff(np.array(NOPE3[10][x])),c=col,ls='--')
     col=next(color)
-    axesb.plot(m4,c=col,ls='-',label="$\Delta T= 2.0\\times 10^4$")
-    axesb.plot(m42,c=col,ls=':')
+    axesa.plot(T4[1:],np.diff(np.array(NOPE4[9][x])),c=col,ls='-',label="$\Delta T= 2.0\\times 10^4$")
+    axesa.plot(T4[1:],np.diff(np.array(NOPE4[10][x])),c=col,ls='--')
     col=next(color)
-    axesb.plot(m5,c=col,ls='-', label="$\Delta T=\infty$")
-    axesb.plot(m52,c=col,ls=':')
+    axesa.plot(TNO[1:],np.diff(np.array(NOJU[9]['n0/'])),c=col,ls='-', label="$\Delta T=\infty$")
+    axesa.plot(TNO[1:],np.diff(np.array(NOJU[10]['n0/'])),c=col,ls='--')
 
-    axesb.legend(loc='best', fancybox=True, framealpha=0.5)
+    axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
-    axesb.set_title(titstr, fontsize=40)
+    val_c=c
+    titstr='$c='+str(c)+'$'
+    print titstr
+    axesa.set_title(titstr, fontsize=40)
 
-    axesb.set_xlim([0,80000])
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,200000])
+    #axesa.set_xlim([0,80000])
 
-    figb.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te_derivate'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 
     c+=0.1
 
-exit()
 ################################################################################################
 #plotting total number of units over time for different c and same DT (it misses infinity and color map)
 #################################################################################################
-'''c=0.1
+c=0.1
 for x in pts1:
     fig, axesa = plt.subplots(1,figsize=(10, 8))
 
@@ -222,10 +305,18 @@ for x in pts1:
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
-    axesa.plot(T1,NOPE1[2][x],'c-',label="$\Delta T=5.0\\times 10^3$")
-    axesa.plot(T2,NOPE2[2][x],'m-',label="$\Delta T= 1.0\\times 10^4$")
-    axesa.plot(T3,NOPE3[2][x],'k-',label="$\Delta T= 1.5 \\times 10^4$")
-    axesa.plot(T4,NOPE4[2][x],'g-',label="$\Delta T= 2.0\\times 10^4$")
+    color=iter(cm.rainbow(np.linspace(0,1,5)))
+
+    col=next(color)
+    axesa.plot(T1,NOPE1[2][x],c=col,label="$\Delta T=5.0\\times 10^3$")
+    col=next(color)
+    axesa.plot(T2,NOPE2[2][x],c=col,label="$\Delta T= 1.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(T3,NOPE3[2][x],c=col,label="$\Delta T= 1.5 \\times 10^4$")
+    col=next(color)
+    axesa.plot(T4,NOPE4[2][x],c=col,label="$\Delta T= 2.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(TNO,NOJU[2]['n0/'],c=col, label="$\Delta T=\infty$")
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -236,11 +327,54 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,80000])
+    axesa.set_xlim([0,200000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')'''
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 
+################################################################################################
+#derivatives previous plot
+###############################################################################################
+c=0.1
+for x in pts1:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Number$ $of$ $units >_{Ens}$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    color=iter(cm.rainbow(np.linspace(0,1,5)))
+
+    col=next(color)
+    axesa.plot(T1[1:],np.diff(np.array(NOPE1[2][x])),c=col,label="$\Delta T=5.0\\times 10^3$")
+    col=next(color)
+    axesa.plot(T2[1:],np.diff(np.array(NOPE2[2][x])),c=col,label="$\Delta T= 1.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(T3[1:],np.diff(np.array(NOPE3[2][x])),c=col,label="$\Delta T= 1.5 \\times 10^4$")
+    col=next(color)
+    axesa.plot(T4[1:],np.diff(np.array(NOPE4[2][x])),c=col,label="$\Delta T= 2.0\\times 10^4$")
+    col=next(color)
+    axesa.plot(TNO[1:],np.diff(np.array(NOJU[2]['n0/'])),c=col, label="$\Delta T=\infty$")
+
+    axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+
+    val_c=c
+    titstr='$c='+str(c)+'$'
+    print titstr
+    c+=0.1
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,200000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 ################################################################################################
 #plotting number of tes and eff over time for same c and different DT
 #############################################################################################
@@ -260,19 +394,19 @@ for x in pts1:
 
     col=next(color)
     axesa.plot(T1,NOPE1[5][x],c=col,ls='-',label="$\Delta T=5.0\\times 10^3$")
-    axesa.plot(T1,NOPE1[6][x],c=col,ls=':')
+    axesa.plot(T1,NOPE1[6][x],c=col,ls='--')
     col=next(color)
     axesa.plot(T2,NOPE2[5][x],c=col,ls='-',label="$\Delta T= 1.0\\times 10^4$")
-    axesa.plot(T2,NOPE2[6][x],c=col,ls=':')
+    axesa.plot(T2,NOPE2[6][x],c=col,ls='--')
     col=next(color)
     axesa.plot(T3,NOPE3[5][x],c=col,ls='-',label="$\Delta T= 1.5 \\times 10^4$")
-    axesa.plot(T3,NOPE3[6][x],c=col,ls=':')
+    axesa.plot(T3,NOPE3[6][x],c=col,ls='--')
     col=next(color)
     axesa.plot(T4,NOPE4[5][x],c=col,ls='-',label="$\Delta T= 2.0\\times 10^4$")
-    axesa.plot(T4,NOPE4[6][x],c=col,ls=':')
+    axesa.plot(T4,NOPE4[6][x],c=col,ls='--')
     col=next(color)
     axesa.plot(TNO,NOJU[5]['n0/'],c=col,ls='-',label="$\Delta T=\infty$")
-    axesa.plot(TNO,NOJU[6]['n0/'],c=col,ls=':')
+    axesa.plot(TNO,NOJU[6]['n0/'],c=col,ls='--')
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -283,10 +417,59 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,80000])
+    axesa.set_xlim([0,200000])
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
+
+###################################################################################################################################
+#derivatives previous plot
+####################################################################################################################################
+c=0.1
+for x in pts1:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Number$ $of$ $units >_{Ens}$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    color=iter(cm.rainbow(np.linspace(0,1,5))) ###change 4 when adding new
+
+    col=next(color)
+    axesa.plot(T1[1:],np.diff(np.array(NOPE1[5][x])),c=col,ls='-',label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(T1[1:],np.diff(np.array(NOPE1[6][x])),c=col,ls='--')
+    col=next(color)
+    axesa.plot(T2[1:],np.diff(np.array(NOPE2[5][x])),c=col,ls='-',label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(T2[1:],np.diff(np.array(NOPE2[6][x])),c=col,ls='--')
+    col=next(color)
+    axesa.plot(T3[1:],np.diff(np.array(NOPE3[5][x])),c=col,ls='-',label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot(T3[1:],np.diff(np.array(NOPE3[6][x])),c=col,ls='--')
+    col=next(color)
+    axesa.plot(T4[1:],np.diff(np.array(NOPE4[5][x])),c=col,ls='-',label="$\Delta T= 2.0\\times 10^4$")
+    axesa.plot(T4[1:],np.diff(np.array(NOPE4[6][x])),c=col,ls='--')
+    col=next(color)
+    axesa.plot(TNO[1:],np.diff(np.array(NOJU[5]['n0/'])),c=col,ls='-',label="$\Delta T=\infty$")
+    axesa.plot(TNO[1:],np.diff(np.array(NOJU[6]['n0/'])),c=col,ls='--')
+
+    axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+
+    val_c=c
+    titstr='$c='+str(c)+'$'
+    print titstr
+    c+=0.1
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,200000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 
 ####################################################################################################################################
 #same DT different c value
@@ -312,7 +495,7 @@ for x in d:
         print x, y
         col=next(color)
         axesa.plot(d[x][2],d[x][1][5][y],c=col,ls='-',label='$c='+str(c)+'$')
-        axesa.plot(d[x][2],d[x][1][6][y],c=col,ls=':')
+        axesa.plot(d[x][2],d[x][1][6][y],c=col,ls='--')
 
         axesa.legend(loc='best', fancybox=True, framealpha=0.5)
         c+=0.1
@@ -322,11 +505,52 @@ for x in d:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,80000])
+    axesa.set_xlim([0,200000])
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(x)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 
+#################################################################################################################
+#derivative previous plot
+################################################################################################################
+for x in d:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Number$ $of$ $units >$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    c=0.1
+
+    color=iter(cm.rainbow(np.linspace(0,1,len(pts1))))
+
+    for y in pts1:
+
+        print x, y
+        col=next(color)
+        axesa.plot(d[x][2][1:],np.diff(np.array(d[x][1][5][y])),c=col,ls='-',label='$c='+str(c)+'$')
+        axesa.plot(d[x][2][1:],np.diff(np.array(d[x][1][6][y])),c=col,ls='--')
+
+        axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+        c+=0.1
+
+    titstr=d[x][0]
+    print titstr
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,200000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(x)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
+
+################################################################################################################
 for x in d:
     fig, axesa = plt.subplots(1,figsize=(10, 8))
 
@@ -346,7 +570,7 @@ for x in d:
 
         col=next(color)
         axesa.plot(d[x][2],d[x][1][9][y],c=col,ls='-',label='$c='+str(c)+'$')
-        axesa.plot(d[x][2],d[x][1][10][y],c=col,ls=':')
+        axesa.plot(d[x][2],d[x][1][10][y],c=col,ls='--')
 
         axesa.legend(loc='best', fancybox=True, framealpha=0.5)
         c+=0.1
@@ -356,11 +580,49 @@ for x in d:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,80000])
+    axesa.set_xlim([0,200000])
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_Te'+str(x)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 
+#############################################################################################
+#derivatives previous plot
+#############################################################################################
+for x in d:
+    fig, axesa = plt.subplots(1,figsize=(10, 8))
+
+    axesa.set_ylabel("$< Lengths >$", fontsize=40)
+    axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
+    axesa.xaxis.set_tick_params(labelsize=20)
+    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    axesa.yaxis.set_tick_params(labelsize=20)
+    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+    c=0.1
+
+    color=iter(cm.rainbow(np.linspace(0,1,len(pts1))))
+
+    for y in pts1:
+
+        col=next(color)
+        axesa.plot(d[x][2][1:],np.diff(np.array(d[x][1][9][y])),c=col,ls='-',label='$c='+str(c)+'$')
+        axesa.plot(d[x][2][1:],np.diff(np.array(d[x][1][10][y])),c=col,ls='--')
+
+        axesa.legend(loc='best', fancybox=True, framealpha=0.5)
+        c+=0.1
+
+    titstr=d[x][0]
+    print titstr
+    axesa.set_title(titstr, fontsize=40)
+
+    #axesa.set_xscale('log')
+    axesa.set_xlim([0,200000])
+    #axesa.set_xlim([0,80000])
+
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_Te'+str(x)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.close()
 '''
 
 ##########################cell 18#############################
