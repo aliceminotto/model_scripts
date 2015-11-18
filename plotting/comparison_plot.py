@@ -98,7 +98,7 @@ def sampling(lista):
 ######################################################################################################
 #plotting total length over time for same c and different DT (it miss the infinity and color map)
 ######################################################################################################
-'''c=0.1
+c=0.1
 for x in pts1:
     fig, axesa = plt.subplots(1,figsize=(10, 8))
 
@@ -136,7 +136,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+
 
 ###################################################################################################
 #derivatives previous plot
@@ -189,7 +189,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 ####################################################################################################
 #plotting len of eff and tes over time for same c and different DT
@@ -240,7 +240,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
     c+=0.1
 ###############################################################################################
@@ -288,7 +288,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
     c+=0.1'''
 
@@ -332,8 +332,8 @@ for x in pts1:
     axesa.set_xlim([0,200000])
     #axesa.set_xlim([0,80000])
 
-    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+    fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')#done
+
 
 ################################################################################################
 #derivatives previous plot
@@ -376,7 +376,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 ################################################################################################
 #plotting number of tes and eff over time for same c and different DT
 #############################################################################################
@@ -408,10 +408,10 @@ for x in pts1:
     axesa.plot(T4,NOPE4[6][x],c=col,ls='--')
     col=next(color)
     axesa.plot(TNO,NOJU[5]['n0/'],c=col,ls='-',label="$\Delta T=\infty$")
-    position1=min([NOPE1[5][x][-100000],NOPE2[5][x][-100000],NOPE3[5][x][100000],NOPE4[5][x][-100000],NOJU[5]['n0/'][-100000]])-1000
+    position1=min([NOPE1[5][x][-100000],NOPE2[5][x][-100000],NOPE3[5][x][100000],NOPE4[5][x][-100000],NOJU[5]['n0/'][-100000]])-100
     plt.annotate('effector genes',xy=(100000, position1),size='x-large',ha="center",va='top',bbox=dict(alpha=0.5,color='white',boxstyle='round'))
     axesa.plot(TNO,NOJU[6]['n0/'],c=col,ls='--')
-    position2=min([NOPE1[6][x][-100000],NOPE2[6][x][-100000],NOPE3[6][x][-100000],NOPE4[6][x][-100000],NOJU[6]['n0/'][-100000]])-1000
+    position2=min([NOPE1[6][x][-100000],NOPE2[6][x][-100000],NOPE3[6][x][-100000],NOPE4[6][x][-100000],NOJU[6]['n0/'][-100000]])-100
     plt.annotate('TEs',xy=(100000,position2),size='x-large',ha="center",va='top',bbox=dict(alpha=0.5,color='white',boxstyle='round'))
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
@@ -427,7 +427,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
 ###################################################################################################################################
 #derivatives previous plot
@@ -475,7 +475,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 ####################################################################################################################################
 #same DT different c value
@@ -512,9 +512,9 @@ for x in d:
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
-    position1=min(lis1)-1000
+    position1=min(lis1)-100
     plt.annotate('effector genes',xy=(100000, position1),size='x-large',ha="center",va='top',bbox=dict(alpha=0.5,color='white',boxstyle='round'))
-    position2=min(lis2)-1000
+    position2=min(lis2)-100
     plt.annotate('TEs',xy=(100000,position2),size='x-large',ha="center",va='top',bbox=dict(alpha=0.5,color='white',boxstyle='round'))
 
     titstr=d[x][0]
@@ -526,7 +526,7 @@ for x in d:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(x)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
 #################################################################################################################
 #derivative previous plot
@@ -565,7 +565,7 @@ for x in d:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(x)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 ################################################################################################################
 for x in d:
@@ -612,7 +612,7 @@ for x in d:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_Te'+str(x)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
 #############################################################################################
 #derivatives previous plot
@@ -650,7 +650,7 @@ for x in d:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_Te'+str(x)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 '''
 
 ##########################cell 18#############################

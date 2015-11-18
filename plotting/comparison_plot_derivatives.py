@@ -136,7 +136,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 ###################################################################################################
 #derivatives previous plot
@@ -154,6 +154,7 @@ for x in pts1:
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
     color=iter(cm.rainbow(np.linspace(0,1,5)))
+    L=40000
 
     der1=np.diff(NOPE1[1][x])
     der2=np.diff(NOPE2[1][x])
@@ -180,12 +181,12 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,100000])
-    axesa.set_ylim([-300,300])
+    axesa.set_xlim([0,L])
+    axesa.set_ylim([-200,200])
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+     #done
 
 ####################################################################################################
 #plotting len of eff and tes over time for same c and different DT
@@ -234,7 +235,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
     c+=0.1'''
 ###############################################################################################
@@ -244,7 +245,7 @@ c=0.1
 for x in pts1:
     fig, axesa = plt.subplots(1,figsize=(10, 8))
 
-    L=100000 #time to plot
+    L=40000 #time to plot
 
     axesa.set_ylabel("$<\Delta L>_{t}$", fontsize=40)
     axesa.set_xlabel("$Time$ $(Evolutionary$ $events)$",fontsize=40)
@@ -280,11 +281,11 @@ for x in pts1:
     axesa.plot(T4[1:],serie42,c=col,ls='--')
     col=next(color)
     axesa.plot(TNO[1:],serie5,c=col,ls='-', label="$\Delta T=\infty$")
-    position1=min([serie1[L/2],serie2[L/2],serie3[L/2],serie4[L/2],serie5[L/2]])-1000
-    plt.annotate('effector genes',xy=(100000, position1),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position1=min([serie1[L/2],serie2[L/2],serie3[L/2],serie4[L/2],serie5[L/2]])-10
+    plt.annotate('effector genes',xy=(L/2, position1),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
     axesa.plot(TNO[1:],serie52,c=col,ls='--')
-    position2=min([serie12[L/2],serie22[L/2],serie32[L/2],serie42[L/2],serie52[L/2]])-1000
-    plt.annotate('TEs',xy=(100000,NOJU[10]['n0/'][-1000]),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position2=max([serie12[L/2],serie22[L/2],serie32[L/2],serie42[L/2],serie52[L/2]])+10
+    plt.annotate('TEs',xy=(L/2,position2),size='x-large',ha='center',va='bottom',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -295,11 +296,10 @@ for x in pts1:
 
     #axesa.set_xscale('log')
     axesa.set_xlim([0,L])
-    #axesa.set_ylim([-3,3])
+    axesa.set_ylim([-200,200])
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_te'+str(c)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
 
     c+=0.1
 
@@ -344,7 +344,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 ################################################################################################
 #derivatives previous plot
@@ -361,6 +361,7 @@ for x in pts1:
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
+    L=100000
     color=iter(cm.rainbow(np.linspace(0,1,5)))
 
     col=next(color)
@@ -383,11 +384,11 @@ for x in pts1:
     axesa.set_title(titstr, fontsize=40)
 
     #axesa.set_xscale('log')
-    axesa.set_xlim([0,200000])
+    axesa.set_xlim([0,L])
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 ################################################################################################
 #plotting number of tes and eff over time for same c and different DT
 #############################################################################################
@@ -434,7 +435,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(c-0.1)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 ###################################################################################################################################
 #derivatives previous plot
@@ -451,7 +452,7 @@ for x in pts1:
     axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
     plt.ticklabel_format(style='sci', scilimits=(0,0))
 
-    L=200000 #time to plot
+    L=100000 #time to plot
 
     color=iter(cm.rainbow(np.linspace(0,1,5))) ###change 4 when adding new
 
@@ -482,10 +483,10 @@ for x in pts1:
     axesa.plot(TNO[1:],serie5,c=col,ls='-',label="$\Delta T=\infty$")
     axesa.plot(TNO[1:],serie52,c=col,ls='--')
 
-    position1=min([serie1[L/2],serie2[L/2],serie3[L/2],serie4[L/2],serie5[L/2]])-1000
-    plt.annotate('effector genes',xy=(100000, position1),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
-    position2=min([serie12[L/2],serie22[L/2],serie32[L/2],serie42[L/2],serie52[L/2]])-1000
-    plt.annotate('TEs',xy=(100000,NOJU[10]['n0/'][-1000]),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position1=max([serie1[L/2],serie2[L/2],serie3[L/2],serie4[L/2],serie5[L/2]])+0.001
+    plt.annotate('effector genes',xy=(L/2, position1),size='x-large',ha='center',va='bottom',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position2=min([serie12[L/2],serie22[L/2],serie32[L/2],serie42[L/2],serie52[L/2]])-0.001
+    plt.annotate('TEs',xy=(L/2,position2),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -500,7 +501,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(c-0.1)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
 ####################################################################################################################################
 #same DT different c value
@@ -540,7 +541,7 @@ for x in pts1:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(x)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 #################################################################################################################
 #derivative previous plot
@@ -563,7 +564,7 @@ for x in d:
     lis1=[]
     lis2=[]
 
-    L=200000 #time to plot
+    L=100000 #time to plot
 
     for y in pts1:
 
@@ -578,10 +579,10 @@ for x in d:
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
-    position1=min(lis1)-1000
-    plt.annotate('effector genes',xy=(100000, position1),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
-    position2=min(lis2)-1000
-    plt.annotate('TEs',xy=(100000,NOJU[10]['n0/'][-1000]),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position1=max(lis1)+0.001
+    plt.annotate('effector genes',xy=(L/2, position1),size='x-large',ha='center',va='bottom',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position2=min(lis2)-0.001
+    plt.annotate('TEs',xy=(L/2,position2),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
 
     titstr=d[x][0]
     print titstr
@@ -592,7 +593,7 @@ for x in d:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'unit_plot_eff_Te'+str(x)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 
 ################################################################################################################
 '''for x in d:
@@ -628,7 +629,7 @@ for x in d:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_Te'+str(x)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()'''
+    '''
 
 #############################################################################################
 #derivatives previous plot
@@ -651,7 +652,7 @@ for x in d:
     lis1=[]
     lis2=[]
 
-    L=200000 #time to plot
+    L=100000 #time to plot
     for y in pts1:
 
         col=next(color)
@@ -664,10 +665,10 @@ for x in d:
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
-    position1=min(lis1)-1000
-    plt.annotate('effector genes',xy=(100000, position1),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
-    position2=min(lis2)-1000
-    plt.annotate('TEs',xy=(100000,NOJU[10]['n0/'][-1000]),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position1=min(lis1)-10
+    plt.annotate('effector genes',xy=(L/2, position1),size='x-large',ha='center',va='top',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
+    position2=max(lis2)+10
+    plt.annotate('TEs',xy=(L/2,position2),size='x-large',ha='center',va='bottom',bbox=dict(alpha=0.5,facecolor='white',boxstyle='round'))
 
     titstr=d[x][0]
     print titstr
@@ -678,7 +679,7 @@ for x in d:
     #axesa.set_xlim([0,80000])
 
     fig.savefig('/usr/users/TSL_20/minottoa/images/'+'len_plot_eff_Te'+str(x)+'_derivatives.png',format='png' ,dpi=1200, bbox_inches='tight')
-    plt.close()
+
 '''
 
 ##########################cell 18#############################
