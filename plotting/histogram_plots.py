@@ -1,6 +1,7 @@
 #!usr/bin/python
 import pickle
 import matplotlib.pyplot as plt
+import matplotlib.lines as lns
 import matplotlib.ticker as mtick
 from matplotlib.pyplot import cm
 import numpy as np
@@ -38,33 +39,28 @@ for key in diz_pths:
 
 #plotting distribution of len for each c value comparing different DTs
 for c_value in nX:
-    fig, axesa = plt.subplots(1,figsize=(10, 8))
+    fig, axesa = plt.subplots(1,figsize=(16, 8),sharey=True)
     color=iter(cm.rainbow(np.linspace(0,1,5)))
-    axesa.set_ylabel("$<Frequency>$", fontsize=40)
-    axesa.set_xlabel("$Lengths$",fontsize=40)
-    axesa.xaxis.set_tick_params(labelsize=20)
-    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
-    axesa.yaxis.set_tick_params(labelsize=20)
-    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
-    plt.ticklabel_format(style='sci', scilimits=(0,0))
+    labels=[]
+    line2d=[]
 
-    for time_gap in diz_pths:
+    for time_gap in [pth1,pth2,pth3,pth4,pth5]:
         efflen=[]
         telen=[]
         if time_gap!=pth5:
             for run in diz_pths[time_gap][1]:
                 j=1
-                print type(time_gap)
-                print type(run)
-                print run
-                print type(c_value)
+                #print type(time_gap)
+                #print type(run)
+                #print run
+                #print type(c_value)
                 fin=time_gap+run+c_value+'pts'+str(j)+'plotdata.p'
                 while os.path.exists(fin):
                     f=open(fin,"rb")
                     A=pickle.load(f)
                     f.close()
-                    efflen.append(A[5])
-                    telen.append(A[6])
+                    efflen=efflen+A[5]
+                    telen=telen+A[6]
                     j+=1
                     fin=time_gap+run+c_value+'pts'+str(j)+'plotdata.p'
         else:
@@ -78,12 +74,39 @@ for c_value in nX:
                     efflen=efflen+A[5]
                     telen=telen+A[6]
                     j+=1
-                    fin=time_gap+run+c_value+'pts'+str(j)+'plotdata.p'
+                    fin=time_gap+run+'n0/'+'pts'+str(j)+'plotdata.p'
         col=next(color)
-        plt.hist(efflen, histtype='step',ls='-', color=col,label=diz_labels[time_gap])
-        plt.hist(telen,histtype='step',ls='--',color=col)
-    titstr='$c='+str((int(c_value[-1])+1)/10.0)+'$'
+        plt.subplot(1,2,1)
+        axesa.set_ylabel("$<Frequency>$", fontsize=40)
+        axesa.set_xlabel("$Lengths$",fontsize=40)
+        axesa.xaxis.set_tick_params(labelsize=20)
+        axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+        axesa.yaxis.set_tick_params(labelsize=20)
+        axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+        plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+        #hist1=plt.hist(efflen, range=(0,6000),bins=np.arange(0.0, 6000.0 + 100, 100.0)) #####
+        #hist10=[x/float(RUNS*j) for x in hist1[0]] #####and below
+        #plotthis=(hist10,hist1[1])
+        plt.hist(efflen, histtype='step',ls='solid', color=col,label=diz_labels[time_gap],range=(0,6000), normed=1,bins=np.arange(0.0, 6000.0 + 100, 100.0),linewidth=1.0)
+
+        line2d.append(lns.Line2D(range(len(efflen)),efflen,color=col,ls='solid'))
+        labels.append(diz_labels[time_gap])
+
+        plt.subplot(1,2,2)
+        axesa.set_ylabel("$<Frequency>$", fontsize=40)
+        axesa.set_xlabel("$Lengths$",fontsize=40)
+        axesa.xaxis.set_tick_params(labelsize=20)
+        axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+        axesa.yaxis.set_tick_params(labelsize=20)
+        axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+        plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+        plt.hist(telen,histtype='step',ls='solid',color=col, normed=1,bins=np.arange(0.0, max(telen) + 100, 100.0),linewidth=1.0)
+    titstr='$c='+str((int(c_value[-2])+1)/10.0)+'$'
     print titstr
-    axesa.set_title(titstr, fontsize=40)
-    axesa.legend(loc='best', fancybox=True, framealpha=0.5)
-    fig.savefig('/usr/users/TSL_20/minottoa/images/histograms/'+'lendistribution_plot'+str((int(c_value[-1])+1)/10.0)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+    plt.subplot(1,2,1)
+    plt.suptitle(titstr, fontsize=40)
+    #plt.figlegend(loc='best', fancybox=True, framealpha=0.5)
+    plt.figlegend(tuple(line2d),tuple(labels),loc='best')
+    fig.savefig('/usr/users/TSL_20/minottoa/images/histograms/'+'lendistribution_plot'+str((int(c_value[-2])+1)/10.0)+'.png',format='png' ,dpi=1200, bbox_inches='tight')
