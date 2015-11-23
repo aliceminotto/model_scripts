@@ -61,15 +61,25 @@ for key in diz_pths:
 #plotting distribution of len for each c value comparing different DTs
 for c_value in nX:
 
-    for time_gap in [pth1]:#,pth2,pth3,pth4,pth5]:
+    for time_gap in [pth4]:#,pth2,pth3,pth4,pth5]:
 
         fig, axesa = plt.subplots(1,figsize=(16, 8))
-        color=iter(cm.rainbow(np.linspace(0,1,40)))
+        if time_gap==pth1:
+            jumps=40
+        elif time_gap==pth2:
+            jumps=20
+        elif time_gap==pth3:
+            jumps=13
+        elif time_gap==pth4:
+            jumps=10
+        elif time_gap==pth5:
+            jumps=10
+        color=iter(cm.rainbow(np.linspace(0,1,jumps)))
         labels=[]
         line2d=[]
 
         if time_gap!=pth5:
-            for run in diz_pths[time_gap][1]:
+            for run in ['RUN14/']:#diz_pths[time_gap][1]:
                 j=1
                 fin=time_gap+run+c_value+'pts'+str(j)+'plotdata.p'
                 while os.path.exists(fin):
@@ -109,6 +119,7 @@ for c_value in nX:
 
     box = axesa.get_position()
     axesa.set_position([box.x0, box.y0 + box.height * 0.1,box.width, box.height * 0.9])
+    axesa.set_xlim([-500,4000])
 
     # Put a legend below current axis
     axesa.legend(tuple(line2d),tuple(labels),loc='upper center', bbox_to_anchor=(0.5, -0.15),fancybox=True, shadow=True, ncol=8)

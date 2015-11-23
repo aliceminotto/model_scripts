@@ -62,10 +62,20 @@ for key in diz_pths:
 #plotting distribution of len for each c value comparing different DTs
 for c_value in nX:
 
-    for time_gap in [pth1]:#,pth2,pth3,pth4,pth5]:
+    for time_gap in [pth1,pth2,pth3,pth4,pth5]:
 
         fig, axesa = plt.subplots(1,figsize=(16, 8))
-        color=iter(cm.rainbow(np.linspace(0,1,40)))
+        if time_gap==pth1:
+            jumps=40
+        elif time_gap==pth2:
+            jumps=20
+        elif time_gap==pth3:
+            jumps=13
+        elif time_gap==pth4:
+            jumps=10
+        elif time_gap==pth5:
+            jumps=10
+        color=iter(cm.rainbow(np.linspace(0,1,jumps)))
         labels=[]
         line2d=[]
 
@@ -99,8 +109,8 @@ for c_value in nX:
                 j+=1
                 fin=time_gap+run+c_value+'pts'+str(j)+'plotdata.p'
 
-                print len(classi)
-                print len(occorrenze)
+                #print len(classi)
+                #print len(occorrenze)
 
                 axesa.set_ylabel("$Frequency$", fontsize=40)
                 axesa.set_xlabel("$Lengths$",fontsize=40)
@@ -119,19 +129,18 @@ for c_value in nX:
                 line2d.append(lns.Line2D(range(len(efflen)),efflen,color=col,ls='solid'))
                 labels.append(j-1)
             else:
-                break
+                box = axesa.get_position()
+                axesa.set_position([box.x0, box.y0 + box.height * 0.1,box.width, box.height * 0.9])
+                axesa.set_xlim([-500,4000])
+
+                # Put a legend below current axis
+                axesa.legend(tuple(line2d),tuple(labels),loc='upper center', bbox_to_anchor=(0.5, -0.15),fancybox=True, shadow=True, ncol=8)
+
+                titstr='$Eff, $'+diz_labels[time_gap]+'$, c='+str((int(c_value[-2])+1)/10.0)+'$'
+                print titstr
+                plt.suptitle(titstr, fontsize=40)
+                #plt.legend(tuple(line2d),tuple(labels),loc='bottom center')
+                fig.savefig('/usr/users/TSL_20/minottoa/images/scatterplots/trial2/'+'lendistribution_plot_eff'+str((int(c_value[-2])+1)/10.0)+'_'+diz_name[time_gap]+'.png',format='png' ,dpi=1200, bbox_inches='tight')
+
         else:
             pass
-
-    box = axesa.get_position()
-    axesa.set_position([box.x0, box.y0 + box.height * 0.1,box.width, box.height * 0.9])
-    axesa.set_xlim([0,4000])
-
-    # Put a legend below current axis
-    axesa.legend(tuple(line2d),tuple(labels),loc='upper center', bbox_to_anchor=(0.5, -0.15),fancybox=True, shadow=True, ncol=8)
-
-    titstr='$Eff, $'+diz_labels[time_gap]+'$, c='+str((int(c_value[-2])+1)/10.0)+'$'
-    print titstr
-    plt.suptitle(titstr, fontsize=40)
-    #plt.legend(tuple(line2d),tuple(labels),loc='bottom center')
-    fig.savefig('/usr/users/TSL_20/minottoa/images/scatterplots/trial2/'+'lendistribution_plot_eff'+str((int(c_value[-2])+1)/10.0)+'_'+diz_name[time_gap]+'.png',format='png' ,dpi=1200, bbox_inches='tight')
