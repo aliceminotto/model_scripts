@@ -56,3 +56,8 @@ def hgt(pathogen,newhost,nto,k):
     lj=rk.randint(1,nto+1) #number of targeted genes
     new_pathogen[l]=dict(itr.izip(newhost.NEWHOST(lj,k),rk.random(lj)))
     return new_pathogen
+
+def probabilities(pathogen,host,rates):
+    dic_prob={} #keys are eff, values are probabilities
+    av_score_eff=sum(gpmap.g_p_mapa(host,pathogen).values())/float(len(host))
+    print av_score_eff

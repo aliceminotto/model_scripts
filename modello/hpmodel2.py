@@ -50,7 +50,7 @@ def jumps(j,rngseed,par):
         u=mda.newhost.NEWHOST(l,par[1])
         Hn[jn]=u
     pathogen_dic=mda.newhost.NEWPATHOGEN(par[1],par[3],par[4])#,itr)
-    print pathogen_dic
+    '''print pathogen_dic
     #writefile2(j,pathogen_dic)
     d_tar=mda.gpmap.g_p_mapa(Hn[0],pathogen_dic)
     d_eff=mda.gpmap.g_p_mapb(Hn[0],pathogen_dic)
@@ -84,7 +84,9 @@ def jumps(j,rngseed,par):
     print pthnew
     print "tloss"
     raw_input()
-    print pathogen_dic
+    print pathogen_dic'''
+    a=mda.transformations.probabilities(pathogen_dic,Hn[0],[1])
+    print a
 
 
 def main():
