@@ -162,15 +162,15 @@ for x in pts1:
     der4=np.diff(NOPE4[1][x])
     der5=np.diff(NOJU[1]['n0/'])
     col=next(color)
-    axesa.plot(averaging(der1),c=col,label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(der1,c=col,label="$\Delta T=5.0\\times 10^3$")
     col=next(color)
-    axesa.plot(averaging(der2),c=col,label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(der2,c=col,label="$\Delta T= 1.0\\times 10^4$")
     col=next(color)
-    axesa.plot(averaging(der3),c=col,label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot((der3),c=col,label="$\Delta T= 1.5 \\times 10^4$")
     col=next(color)
-    axesa.plot(averaging(der4),c=col,label="$\Delta T= 2.0\\times 10^4$")
+    axesa.plot((der4),c=col,label="$\Delta T= 2.0\\times 10^4$")
     col=next(color)
-    axesa.plot(averaging(der5),c=col, label="$\Delta T=\infty$")
+    axesa.plot((der5),c=col, label="$\Delta T=\infty$")
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -257,16 +257,16 @@ for x in pts1:
 
     color=iter(cm.rainbow(np.linspace(0,1,5))) ###change 4 when adding new
 
-    serie1=averaging(np.diff(NOPE1[9][x]))
-    serie12=averaging(np.diff(NOPE1[10][x]))
-    serie2=averaging(np.diff(NOPE2[9][x]))
-    serie22=averaging(np.diff(NOPE2[10][x]))
-    serie3=averaging(np.diff(NOPE3[9][x]))
-    serie32=averaging(np.diff(NOPE3[10][x]))
-    serie4=averaging(np.diff(NOPE4[9][x]))
-    serie42=averaging(np.diff(NOPE4[10][x]))
-    serie5=averaging(np.diff(NOJU[9]['n0/']))
-    serie52=averaging(np.diff(NOJU[10]['n0/']))
+    serie1=(np.diff(NOPE1[9][x]))
+    serie12=(np.diff(NOPE1[10][x]))
+    serie2=(np.diff(NOPE2[9][x]))
+    serie22=(np.diff(NOPE2[10][x]))
+    serie3=(np.diff(NOPE3[9][x]))
+    serie32=(np.diff(NOPE3[10][x]))
+    serie4=(np.diff(NOPE4[9][x]))
+    serie42=(np.diff(NOPE4[10][x]))
+    serie5=(np.diff(NOJU[9]['n0/']))
+    serie52=(np.diff(NOJU[10]['n0/']))
     col=next(color)
     axesa.plot(T1[1:],serie1,c=col,ls='-',label="$\Delta T=5.0\\times 10^3$")
     axesa.plot(T1[1:],serie12,c=col,ls='--')
@@ -365,15 +365,15 @@ for x in pts1:
     color=iter(cm.rainbow(np.linspace(0,1,5)))
 
     col=next(color)
-    axesa.plot(T1[1:],averaging(np.diff(NOPE1[2][x])),c=col,label="$\Delta T=5.0\\times 10^3$")
+    axesa.plot(T1[1:],(np.diff(NOPE1[2][x])),c=col,label="$\Delta T=5.0\\times 10^3$")
     col=next(color)
-    axesa.plot(T2[1:],averaging(np.diff(NOPE2[2][x])),c=col,label="$\Delta T= 1.0\\times 10^4$")
+    axesa.plot(T2[1:],(np.diff(NOPE2[2][x])),c=col,label="$\Delta T= 1.0\\times 10^4$")
     col=next(color)
-    axesa.plot(T3[1:],averaging(np.diff(NOPE3[2][x])),c=col,label="$\Delta T= 1.5 \\times 10^4$")
+    axesa.plot(T3[1:],(np.diff(NOPE3[2][x])),c=col,label="$\Delta T= 1.5 \\times 10^4$")
     col=next(color)
-    axesa.plot(T4[1:],averaging(np.diff(NOPE4[2][x])),c=col,label="$\Delta T= 2.0\\times 10^4$")
+    axesa.plot(T4[1:],(np.diff(NOPE4[2][x])),c=col,label="$\Delta T= 2.0\\times 10^4$")
     col=next(color)
-    axesa.plot(TNO[1:],averaging(np.diff(NOJU[2]['n0/'])),c=col, label="$\Delta T=\infty$")
+    axesa.plot(TNO[1:],(np.diff(NOJU[2]['n0/'])),c=col, label="$\Delta T=\infty$")
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
 
@@ -456,16 +456,16 @@ for x in pts1:
 
     color=iter(cm.rainbow(np.linspace(0,1,5))) ###change 4 when adding new
 
-    serie1=averaging(np.diff(NOPE1[5][x]))
-    serie12=averaging(np.diff(NOPE1[6][x]))
-    serie2=averaging(np.diff(NOPE2[5][x]))
-    serie22=averaging(np.diff(NOPE2[6][x]))
-    serie3=averaging(np.diff(NOPE3[5][x]))
-    serie32=averaging(np.diff(NOPE3[6][x]))
-    serie4=averaging(np.diff(NOPE4[5][x]))
-    serie42=averaging(np.diff(NOPE4[6][x]))
-    serie5=averaging(np.diff(NOJU[5]['n0/']))
-    serie52=averaging(np.diff(NOJU[6]['n0/']))
+    serie1=(np.diff(NOPE1[5][x]))
+    serie12=(np.diff(NOPE1[6][x]))
+    serie2=(np.diff(NOPE2[5][x]))
+    serie22=(np.diff(NOPE2[6][x]))
+    serie3=(np.diff(NOPE3[5][x]))
+    serie32=(np.diff(NOPE3[6][x]))
+    serie4=(np.diff(NOPE4[5][x]))
+    serie42=(np.diff(NOPE4[6][x]))
+    serie5=(np.diff(NOJU[5]['n0/']))
+    serie52=(np.diff(NOJU[6]['n0/']))
 
     col=next(color)
     axesa.plot(T1[1:],serie1,c=col,ls='-',label="$\Delta T=5.0\\times 10^3$")
@@ -570,11 +570,11 @@ for x in d:
 
         print x, y
         col=next(color)
-        axesa.plot(d[x][2][1:],averaging(np.diff(d[x][1][5][y])),c=col,ls='-',label='$c='+str(c)+'$')
-        axesa.plot(d[x][2][1:],averaging(np.diff(d[x][1][6][y])),c=col,ls='--')
+        axesa.plot(d[x][2][1:],(np.diff(d[x][1][5][y])),c=col,ls='-',label='$c='+str(c)+'$')
+        axesa.plot(d[x][2][1:],(np.diff(d[x][1][6][y])),c=col,ls='--')
 
-        lis1.append(averaging(np.diff(d[x][1][5][y]))[L/2])
-        lis2.append(averaging(np.diff(d[x][1][6][y]))[L/2])
+        lis1.append((np.diff(d[x][1][5][y]))[L/2])
+        lis2.append((np.diff(d[x][1][6][y]))[L/2])
         c+=0.1
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)
@@ -656,11 +656,11 @@ for x in d:
     for y in pts1:
 
         col=next(color)
-        axesa.plot(d[x][2][1:],averaging(np.diff(d[x][1][9][y])),c=col,ls='-',label='$c='+str(c)+'$')
-        axesa.plot(d[x][2][1:],averaging(np.diff(d[x][1][10][y])),c=col,ls='--')
+        axesa.plot(d[x][2][1:],(np.diff(d[x][1][9][y])),c=col,ls='-',label='$c='+str(c)+'$')
+        axesa.plot(d[x][2][1:],(np.diff(d[x][1][10][y])),c=col,ls='--')
 
-        lis1.append(averaging(np.diff(d[x][1][9][y]))[L/2])
-        lis2.append(averaging(np.diff(d[x][1][10][y]))[L/2])
+        lis1.append((np.diff(d[x][1][9][y]))[L/2])
+        lis2.append((np.diff(d[x][1][10][y]))[L/2])
         c+=0.1
 
     axesa.legend(loc='best', fancybox=True, framealpha=0.5)

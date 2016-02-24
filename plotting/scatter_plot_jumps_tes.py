@@ -61,7 +61,7 @@ for key in diz_pths:
 #plotting distribution of len for each c value comparing different DTs
 for c_value in nX:
 
-    for time_gap in [pth4]:#,pth2,pth3,pth4,pth5]:
+    for time_gap in [pth5]:#,pth2,pth3,pth4,pth5]:
 
         fig, axesa = plt.subplots(1,figsize=(16, 8))
         if time_gap==pth1:
@@ -115,7 +115,41 @@ for c_value in nX:
                 else:
                     break
         else:
-            pass
+            for run in ['RUN14/']:#diz_pths[time_gap][1]:
+                j=1
+                fin=time_gap+run+'n0/'+'pts'+str(j)+'plotdata.p'
+                while os.path.exists(fin):
+                    print fin
+                    f=open(fin,"rb")
+                    A=pickle.load(f)
+                    f.close()
+                    #efflen=A[5]
+                    telen=A[6]
+                    j+=1
+                    fin=time_gap+run+'n0/'''+'pts'+str(j)+'plotdata.p'
+
+                    histval=frequenze(telen,100)
+                    classi=histval[0]
+                    occorrenze=histval[1]
+
+                    axesa.set_ylabel("$Frequency$", fontsize=40)
+                    axesa.set_xlabel("$Lengths$",fontsize=40)
+                    axesa.xaxis.set_tick_params(labelsize=20)
+                    axesa.xaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+                    axesa.yaxis.set_tick_params(labelsize=20)
+                    axesa.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+                    plt.ticklabel_format(style='sci', scilimits=(0,0))
+
+
+                    print j-1
+                    col=next(color)
+                    plt.scatter(classi,occorrenze, color=col,label=diz_labels[time_gap],alpha=.5)
+                    plt.plot(classi, occorrenze, color=col, ls='--', alpha=.2)
+
+                    line2d.append(lns.Line2D(range(len(telen)),telen,color=col,ls='solid'))
+                    labels.append(j-1)
+                else:
+                    break
 
     box = axesa.get_position()
     axesa.set_position([box.x0, box.y0 + box.height * 0.1,box.width, box.height * 0.9])

@@ -1,9 +1,10 @@
+import os
+import pickle
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+
 def datadisplay(lth,ltn,ngt,efflens,telens,dbina,dbinb,P,SEED,pth,wfitn,Qi):
-
-
-  import numpy as np
-  import matplotlib.pyplot as plt
-  import matplotlib.ticker as mtick
 
   #plt.use('Agg')
 ##########################################
@@ -118,15 +119,15 @@ just adding them at the end of the things the fun needs and at the and of the Da
 def savedata(lth,ltn,ngt,efflens,telens, P,SEED,pth,wfitn,trns,nefft,ntest,lneff,lntest, DT, JUMPS): ###*
 
   Data=[lth,ltn,ngt,nefft,ntest,efflens,telens, P,SEED,trns,lneff,lntest,DT,JUMPS] ###*
+  Data2=[wfitn]
 
-  import os
-  import pickle
   nj=1
   namefig=pth+'/pts'+str(nj)+'plotdata.p'
 
   while os.path.exists(namefig):
     nj+=1
     namefig=pth+'/pts'+str(nj)+'plotdata.p'
+    namefig2=pth+'/pts'+str(nj)+'plotdata_2.p'
   print namefig
 
   #**********add these lines
@@ -135,3 +136,4 @@ def savedata(lth,ltn,ngt,efflens,telens, P,SEED,pth,wfitn,trns,nefft,ntest,lneff
   Data.append(aladd)
 
   pickle.dump(Data,open(namefig,"wb"))
+  pickle.dump(Data2,open(namefig2,wb),protocol=2)
