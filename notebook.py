@@ -51,6 +51,10 @@ for name in files:
 
     t=DATA[0]
     NAVa=DATA[5]
+    print type(NAVa)
+    for x in range(10):
+        for k in NAVa:
+            print k, NAVa[k]
     NAVb=DATA[6]
     LAVa=DATA[9]
     LAVb=DATA[10]
@@ -72,5 +76,5 @@ for data in filesx:
       avdict = pickle.load(handle)
     cn=0
     for j in avdict:
-        dataname=filesx+str(cn) #optional
+        dataname=data[:-2]+str(cn) #optional
         plotdictder(j,DT,dataname)
