@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 import numpy as np
 
-def plotdictder(AVdict,DT):
-
+def plotdictder(AVdict,DT,fname):
+    
+    
+    
     dAVdict={}
     tnax={}
     fig, axesa= plt.subplots(1,figsize=(10, 8))
@@ -29,6 +31,8 @@ def plotdictder(AVdict,DT):
         dAVdict[j]=np.diff(Da)/DT
         tnax[j]=[k for k in tn]
         tnax[j].pop(-1)
+        
+        pickle.dump(dAVdict,open(fname ,"wb"), protocol=2) #optional
 
         axesa.plot(tnax[j],dAVdict[j],"o-", markersize=2, linewidth=1.1)
 
@@ -65,26 +69,13 @@ for name in files:
 
     del NAVa,NAVb,LAVa,LAVb
 
-    with open(name, 'rb') as handle:
-      DATA = pickle.load(handle)
-    print len(DATA)
-    #raw_input()
-    DT=50
-    for j in DATA:
-        plotdictder(j,DT)
+filesx=[name[:-2]+"nava.p",name[:-2]+"nava.p", name[:-2]+"nava.p", name[:-2]+"nava.p"]
+DT=200  
 
-    with open(name, 'rb') as handle:
-      DATA = pickle.load(handle)
-    print len(DATA)
-    #raw_input()
-    DT=500
-    for j in DATA:
-        plotdictder(j,DT)
-
-    with open(name, 'rb') as handle:
-      DATA = pickle.load(handle)
-    print len(DATA)
-    #raw_input()
-    DT=1000
-    for j in DATA:
-        plotdictder(j,DT)
+for data in filesx:
+    with open(data, 'rb') as handle:
+      avdict = pickle.load(handle)
+    cn=0
+    for j in avdict:
+        dataname=filesx+str(cn) #optional
+        plotdictder(j,DT,dataname)
