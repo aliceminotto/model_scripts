@@ -7,9 +7,7 @@ import matplotlib.ticker as mtick
 import numpy as np
 
 def plotdictder(AVdict,DT,fname):
-    
-    
-    
+
     dAVdict={}
     tnax={}
     fig, axesa= plt.subplots(1,figsize=(10, 8))
@@ -31,14 +29,15 @@ def plotdictder(AVdict,DT,fname):
         dAVdict[j]=np.diff(Da)/DT
         tnax[j]=[k for k in tn]
         tnax[j].pop(-1)
-        
+
         pickle.dump(dAVdict,open(fname ,"wb"), protocol=2) #optional
 
         axesa.plot(tnax[j],dAVdict[j],"o-", markersize=2, linewidth=1.1)
-
         axesb.plot(AVdict[j],"o-", markersize=2, linewidth=1.1)
 
-        plt.show()
+    fig.patch.set_alpha(0.5)
+    fig.savefig(fname+'.png',format='png' ,dpi=100, bbox_inches='tight')
+    fig.savefig(fname+'.svg', bbox_inches='tight')
 
 files=['/usr/users/TSL_20/minottoa/change_DT_Qi/DT5000/before_c_changes/CDATAV.p',
             '/usr/users/TSL_20/minottoa/change_DT_Qi/DT10000/bf_c/CDATAV.p', '/usr/users/TSL_20/minottoa/change_DT_Qi/DT15000/bf_c/CDATAV.p' ,
@@ -49,10 +48,6 @@ for name in files:
     with open(name, 'rb') as handle:
         DATA = pickle.load(handle)
         print len(DATA)
-
-    #MINOTTO PERHAPS IT SHOULD BE EASIER TO SAVE THESE INDIVIDUALLY?
-    #LIKE NAVa=DATA[5]
-    #pickle.dump("NAVa",opeb('navadt=Whatehever','wb'))?
 
     t=DATA[0]
     NAVa=DATA[5]
@@ -70,7 +65,7 @@ for name in files:
     del NAVa,NAVb,LAVa,LAVb
 
 filesx=[name[:-2]+"nava.p",name[:-2]+"nava.p", name[:-2]+"nava.p", name[:-2]+"nava.p"]
-DT=200  
+DT=200
 
 for data in filesx:
     with open(data, 'rb') as handle:
